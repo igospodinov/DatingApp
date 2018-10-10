@@ -12,6 +12,7 @@ namespace DatingApp.API.Data
         {
             _context = context;
         }
+      
         public async Task<User> Login(string username, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
@@ -53,7 +54,7 @@ namespace DatingApp.API.Data
             user.PasswordHash = passwordHash;
 
             await _context.Users.AddAsync(user);
-            await _context.AddRangeAsync();
+            await _context.SaveChangesAsync();
 
             return user;
         }
